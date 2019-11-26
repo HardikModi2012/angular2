@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <a routerLink="addEmployee">Add Employee</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employees;">
+                <td>{{employee.Id}}</td>
+                <td>{{employee.Name}}</td>
+                <td>{{employee.City}}</td>
+                <td>{{employee.Address}}</td>
+                <td>
+                    <button title="Edit" (click)="onUpdate(employee)">Edit</button>
+                    <button title="Delete" (click)="OnDelete(employee.Id)">Delete</button>
+                </td>
+            </tr>
+            <tr *ngIf="!employees || employees.length==0">
+                <td colspan="5">
+                    No employees to display
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

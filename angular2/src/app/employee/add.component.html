@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <form name="checkoutForm" #checkoutForm="ngForm" (ngSubmit)="onSubmit(checkoutForm)">
+
+        <div>
+            <label for="name">
+                Name
+            </label>
+            <input id="name" type="text" name="name">
+        </div>
+        <div>
+            <label for="city">
+                Address
+            </label>
+            <input id="city" type="text" name="city">
+        </div>
+        <div>
+            <label for="address">
+                Address
+            </label>
+            <input id="address" type="text" name="address">
+        </div>
+
+        <button class="button" type="submit">Add</button>
+
+    </form>
+</body>
+</html>

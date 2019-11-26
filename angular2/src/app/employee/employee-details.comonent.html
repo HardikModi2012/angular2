@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <h2>employee Details</h2>
+
+    <div *ngIf="employee">
+        <h3>{{ employee.Name }}</h3>
+        <h4>{{ employee.City }}</h4>
+        <p>{{ employee.Address }}</p>
+        <button (click)="addEmployee(employee)">Add</button>
+    </div>
+</body>
+</html>
