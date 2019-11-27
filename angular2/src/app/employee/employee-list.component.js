@@ -11,8 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var employee_service_1 = require("../employee/employee.service");
+var router_1 = require("@angular/router");
 var employeeListComponent1 = /** @class */ (function () {
-    function employeeListComponent1(_employeeService) {
+    function employeeListComponent1(_router, _employeeService) {
+        this._router = _router;
         this._employeeService = _employeeService;
         this.employeeIdUpdate = null;
     }
@@ -34,18 +36,33 @@ var employeeListComponent1 = /** @class */ (function () {
             });
         }
     };
-    employeeListComponent1.prototype.onUpdate = function (employee) {
-        var _this = this;
-        this._employeeService.updateEmployee(employee)
-            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
+    employeeListComponent1.prototype.onEdit = function (employee) {
+        this._router.navigate(["/edit/" + employee.Id]);
+        //this._employeeService.updateEmployee(employee)
+        //    .subscribe((data: any) => this._employeeService.getEmployee());
     };
-    employeeListComponent1.prototype.loadEmployeeToEdit = function (Id) {
+    employeeListComponent1.prototype.CreateEmployee = function (employee) {
         var _this = this;
-        this._employeeService.getEmployeeById(Id).subscribe(function (emp) {
-            return _this.employeeIdUpdate = emp.Id;
-        });
-        this.checkoutForm.controls['Name'].setValue(emp.
-        );
+        if (this.employeeIdUpdate == null) {
+            this._employeeService.addEmployee(employee).subscribe(function () {
+                _this.onGet();
+            });
+        }
+        else {
+            employee.Id = this.employeeIdUpdate;
+            this._employeeService.updateEmployee(employee).subscribe(function () {
+                _this.onGet();
+                _this.employeeIdUpdate = null;
+            });
+        }
+        //loadEmployeeToEdit(Id: number)
+        //{
+        //    this._employeeService.getEmployeeById(Id).subscribe(emp =>
+        //        this.employeeIdUpdate = emp.Id;
+        //        this.checkoutForm.controls['Name'].setValue(employee.Name);
+        //        this.checkoutForm.controls['City'].setValue(employee.City);
+        //        this.checkoutForm.controls['Name'].setValue(employee.Name);
+        //}   
         //onSubmit(form: NgForm) {
         //    if (form.value.Id == null) {
         //        this.employeeService.addEmployee(form.value)
@@ -65,7 +82,7 @@ var employeeListComponent1 = /** @class */ (function () {
             templateUrl: 'app/employee/list.component.html',
             providers: [employee_service_1.employeeService]
         }),
-        __metadata("design:paramtypes", [employee_service_1.employeeService])
+        __metadata("design:paramtypes", [router_1.Router, employee_service_1.employeeService])
     ], employeeListComponent1);
     return employeeListComponent1;
 }());

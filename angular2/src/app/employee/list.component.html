@@ -23,7 +23,7 @@
                 <td>{{employee.City}}</td>
                 <td>{{employee.Address}}</td>
                 <td>
-                    <button title="Edit" [routerLink]="['/editEmployee', {employee.Id}]">Edit</button>
+                    <button title="Edit" (click)="onEdit(employee.Id)">Edit</button>
                     <button title="Delete" (click)="OnDelete(employee.Id)">Delete</button>
                 </td>
             </tr>

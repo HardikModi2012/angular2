@@ -21,7 +21,7 @@ var employeeService = /** @class */ (function () {
             .map(function (res) { return res.json(); });
     };
     employeeService.prototype.getEmployeeById = function (Id) {
-        return this._http.get("http://localhost:60163/api/employee/FindEmployee")
+        return this._http.get("http://localhost:60163/api/employee/FindEmployee/" + Id)
             .map(function (res) { return res.json(); });
     };
     employeeService.prototype.deleteEmployee = function (Id) {

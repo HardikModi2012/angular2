@@ -2,6 +2,7 @@
 import { IEmployee } from './IEmployee';
 import { employeeService } from '../employee/employee.service';
 import { NgForm } from '@angular/forms';
+
 @Component({
     selector: 'addEmployee',
     templateUrl: 'app/employee/add.component.html',
@@ -16,9 +17,6 @@ export class addEmployee implements OnInit {
     constructor(private _employeeService: employeeService) { }
 
     ngOnInit() {
-        this.employee.Name = "Hardik";
-        this.employee.City = "Mumbai";
-        this.employee.Address = "Ahmd";
         this.onGet();
 
     }
@@ -50,7 +48,7 @@ export class addEmployee implements OnInit {
 
     insertEmployee(checkoutForm: NgForm) {
         this._employeeService.addEmployee(checkoutForm.value)
-            .subscribe((data: any) => this._employeeService.getEmployee());
+            .subscribe((data: any) => this.onGet());
     }
 
 }

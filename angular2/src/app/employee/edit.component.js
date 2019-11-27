@@ -17,15 +17,15 @@ var editEmployee = /** @class */ (function () {
         this.employee = {};
     }
     editEmployee.prototype.ngOnInit = function () {
-        this.employee.Name = "Hardik";
-        this.employee.City = "Mumbai";
-        this.employee.Address = "Ahmd";
+        //this.employee.Name = "Hardik";
+        //this.employee.City = "Mumbai";
+        //this.employee.Address = "Ahmd";
         this.onGet();
     };
     editEmployee.prototype.onGet = function () {
         var _this = this;
-        this._employeeService.getEmployee()
-            .subscribe(function (emp) { return _this.employees = emp; });
+        this._employeeService.getEmployeeById()
+            .subscribe(function (emp) { return _this.employee = emp; });
     };
     editEmployee.prototype.OnDelete = function (Id) {
         var _this = this;

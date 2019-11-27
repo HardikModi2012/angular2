@@ -33,12 +33,12 @@ namespace webapi.Controllers
         }
 
         [HttpGet]
-        [Route("FindEmployee")]
-        public Employee Get(int Id)
+        [Route("FindEmployee/{id}")]
+        public Employee Get(int id)
         {
             using (SampleDBEntities db = new SampleDBEntities())
             {
-                return db.Employees.FirstOrDefault(e => e.Id == Id);
+                return db.Employees.FirstOrDefault(e => e.Id == id);
             }
         }
 

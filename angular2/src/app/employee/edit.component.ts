@@ -16,15 +16,15 @@ export class editEmployee implements OnInit {
     constructor(private _employeeService: employeeService) { }
 
     ngOnInit() {
-        this.employee.Name = "Hardik";
-        this.employee.City = "Mumbai";
-        this.employee.Address = "Ahmd";
+        //this.employee.Name = "Hardik";
+        //this.employee.City = "Mumbai";
+        //this.employee.Address = "Ahmd";
         this.onGet();
 
     }
     onGet() {
-        this._employeeService.getEmployee()
-            .subscribe(emp => this.employees = emp);
+        this._employeeService.getEmployeeById()
+            .subscribe(emp => this.employee = emp);
     }
     OnDelete(Id: number) {
         if (confirm("r u sure") == true) {

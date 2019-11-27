@@ -15,7 +15,7 @@ export class employeeService {
     }
 
     getEmployeeById(Id: number): Observable<IEmployee> {
-        return this._http.get("http://localhost:60163/api/employee/FindEmployee")
+        return this._http.get("http://localhost:60163/api/employee/FindEmployee/" + Id)
             .map((res: any) => res.json());
     }
 

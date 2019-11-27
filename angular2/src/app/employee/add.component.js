@@ -17,9 +17,6 @@ var addEmployee = /** @class */ (function () {
         this.employee = {};
     }
     addEmployee.prototype.ngOnInit = function () {
-        this.employee.Name = "Hardik";
-        this.employee.City = "Mumbai";
-        this.employee.Address = "Ahmd";
         this.onGet();
     };
     addEmployee.prototype.onGet = function () {
@@ -50,7 +47,7 @@ var addEmployee = /** @class */ (function () {
     addEmployee.prototype.insertEmployee = function (checkoutForm) {
         var _this = this;
         this._employeeService.addEmployee(checkoutForm.value)
-            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
+            .subscribe(function (data) { return _this.onGet(); });
     };
     addEmployee = __decorate([
         core_1.Component({
