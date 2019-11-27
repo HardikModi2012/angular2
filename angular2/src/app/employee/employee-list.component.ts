@@ -2,6 +2,7 @@
 import { IEmployee } from './IEmployee';
 import { employeeService } from '../employee/employee.service';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'ListOfEmployee',
@@ -13,6 +14,8 @@ import { NgForm } from '@angular/forms';
 export class employeeListComponent1 implements OnInit {
     employees: IEmployee[];
     employee: IEmployee;
+    employeeIdUpdate: number = null;
+    checkoutForm: any;
 
     constructor(private _employeeService: employeeService) { }
 
@@ -34,10 +37,18 @@ export class employeeListComponent1 implements OnInit {
         }
     }
 
-    onUpdate(Id: number, employee: IEmployee) {
-        this._employeeService.addEmployee(employee)
+    onUpdate(employee: IEmployee) {
+        this._employeeService.updateEmployee(employee)
                 .subscribe((data: any) => this._employeeService.getEmployee());
-        }
+    }
+
+    loadEmployeeToEdit(Id: number)
+    {
+        this._employeeService.getEmployeeById(Id).subscribe(emp =>
+            this.employeeIdUpdate = emp.Id;
+        this.checkoutForm.controls['Name'].setValue(emp.
+
+
     //onSubmit(form: NgForm) {
     //    if (form.value.Id == null) {
     //        this.employeeService.addEmployee(form.value)

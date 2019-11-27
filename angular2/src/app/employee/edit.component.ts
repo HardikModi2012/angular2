@@ -3,13 +3,13 @@ import { IEmployee } from './IEmployee';
 import { employeeService } from '../employee/employee.service';
 import { NgForm } from '@angular/forms';
 @Component({
-    selector: 'addEmployee',
-    templateUrl: 'app/employee/add.component.html',
+    selector: 'editEmployee',
+    templateUrl: 'app/employee/edit.component.html',
     providers: [employeeService]
 
 })
 
-export class addEmployee implements OnInit {
+export class editEmployee implements OnInit {
     employees: IEmployee[];
     employee: IEmployee = {} as IEmployee;
 

@@ -11,63 +11,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var employee_service_1 = require("../employee/employee.service");
-var employeeListComponent1 = /** @class */ (function () {
-    function employeeListComponent1(_employeeService) {
+var editEmployee = /** @class */ (function () {
+    function editEmployee(_employeeService) {
         this._employeeService = _employeeService;
-        this.employeeIdUpdate = null;
+        this.employee = {};
     }
-    employeeListComponent1.prototype.ngOnInit = function () {
+    editEmployee.prototype.ngOnInit = function () {
+        this.employee.Name = "Hardik";
+        this.employee.City = "Mumbai";
+        this.employee.Address = "Ahmd";
         this.onGet();
     };
-    employeeListComponent1.prototype.onGet = function () {
+    editEmployee.prototype.onGet = function () {
         var _this = this;
         this._employeeService.getEmployee()
             .subscribe(function (emp) { return _this.employees = emp; });
     };
-    employeeListComponent1.prototype.OnDelete = function (Id) {
+    editEmployee.prototype.OnDelete = function (Id) {
         var _this = this;
         if (confirm("r u sure") == true) {
             this._employeeService.deleteEmployee(Id)
                 .subscribe(function (x) {
-                //this._employeeService.getEmployee();
-                _this.onGet();
+                _this._employeeService.getEmployee();
             });
         }
     };
-    employeeListComponent1.prototype.onUpdate = function (employee) {
+    editEmployee.prototype.onSubmit = function (checkoutForm) {
+        if (checkoutForm.value.Id == null)
+            this.insertEmployee(checkoutForm);
+        else
+            this.onUpdate(checkoutForm);
+    };
+    editEmployee.prototype.onUpdate = function (checkoutForm) {
         var _this = this;
-        this._employeeService.updateEmployee(employee)
+        this._employeeService.updateEmployee(checkoutForm.value)
             .subscribe(function (data) { return _this._employeeService.getEmployee(); });
     };
-    employeeListComponent1.prototype.loadEmployeeToEdit = function (Id) {
+    editEmployee.prototype.insertEmployee = function (checkoutForm) {
         var _this = this;
-        this._employeeService.getEmployeeById(Id).subscribe(function (emp) {
-            return _this.employeeIdUpdate = emp.Id;
-        });
-        this.checkoutForm.controls['Name'].setValue(emp.
-        );
-        //onSubmit(form: NgForm) {
-        //    if (form.value.Id == null) {
-        //        this.employeeService.addEmployee(form.value)
-        //            .subscribe((data: any) => this.employeeService.getEmployee());
-        //    }
-        //    else {
-        //        this.employeeService.putEmployee(form.value.Id, form.value)
-        //            .subscribe((data: any) => {
-        //                this.employeeService.getEmployee();
-        //            });
-        //    }
-        //}
+        this._employeeService.addEmployee(checkoutForm.value)
+            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
     };
-    employeeListComponent1 = __decorate([
+    editEmployee = __decorate([
         core_1.Component({
-            selector: 'ListOfEmployee',
-            templateUrl: 'app/employee/list.component.html',
+            selector: 'editEmployee',
+            templateUrl: 'app/employee/edit.component.html',
             providers: [employee_service_1.employeeService]
         }),
         __metadata("design:paramtypes", [employee_service_1.employeeService])
-    ], employeeListComponent1);
-    return employeeListComponent1;
+    ], editEmployee);
+    return editEmployee;
 }());
-exports.employeeListComponent1 = employeeListComponent1;
-//# sourceMappingURL=employee-list.component.js.map
+exports.editEmployee = editEmployee;
+//# sourceMappingURL=edit.component.js.map

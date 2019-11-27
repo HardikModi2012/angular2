@@ -14,8 +14,12 @@ var employee_service_1 = require("../employee/employee.service");
 var addEmployee = /** @class */ (function () {
     function addEmployee(_employeeService) {
         this._employeeService = _employeeService;
+        this.employee = {};
     }
     addEmployee.prototype.ngOnInit = function () {
+        this.employee.Name = "Hardik";
+        this.employee.City = "Mumbai";
+        this.employee.Address = "Ahmd";
         this.onGet();
     };
     addEmployee.prototype.onGet = function () {
@@ -32,9 +36,20 @@ var addEmployee = /** @class */ (function () {
             });
         }
     };
-    addEmployee.prototype.onUpdate = function (Id, employee) {
+    addEmployee.prototype.onSubmit = function (checkoutForm) {
+        if (checkoutForm.value.Id == null)
+            this.insertEmployee(checkoutForm);
+        else
+            this.onUpdate(checkoutForm);
+    };
+    addEmployee.prototype.onUpdate = function (checkoutForm) {
         var _this = this;
-        this._employeeService.addEmployee(employee)
+        this._employeeService.updateEmployee(checkoutForm.value)
+            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
+    };
+    addEmployee.prototype.insertEmployee = function (checkoutForm) {
+        var _this = this;
+        this._employeeService.addEmployee(checkoutForm.value)
             .subscribe(function (data) { return _this._employeeService.getEmployee(); });
     };
     addEmployee = __decorate([

@@ -10,6 +10,7 @@ import { employeeDetailscomponent } from './employee/employee-details.component'
 import { pagenotfound } from './employee/pagenotfound.component';
 import { homecomponent } from './employee/home.component';
 import { addEmployee } from './employee/add.component';
+import { editEmployee } from './employee/edit.component';
 
 
 const appRoutes: Routes = [
@@ -17,12 +18,14 @@ const appRoutes: Routes = [
     { path: 'ListOfEmployee', component: employeeListComponent1 },
     { path: 'emp-details', component: employeeDetailscomponent },
     { path: 'addEmployee', component: addEmployee },
+    { path: 'editEmployee', component: editEmployee },
     { path: 'home', component: homecomponent },
     { path: '**', component: pagenotfound }
 ];
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, employeeListComponent1, employeeDetailscomponent, pagenotfound, addEmployee, homecomponent ],
+    imports: [BrowserModule, FormsModule , HttpModule, RouterModule.forRoot(appRoutes)],
+    declarations: [AppComponent, employeeListComponent1, employeeDetailscomponent, pagenotfound,
+        addEmployee, editEmployee , homecomponent],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

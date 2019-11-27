@@ -76,9 +76,9 @@ namespace webapi.Controllers
                     db.Employees.Add(employee);
                     db.SaveChanges();
                 }
-                catch(Exception)
+                catch(Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
                     return Ok(employee);
 
@@ -89,29 +89,34 @@ namespace webapi.Controllers
         [Route("UpdateEmployee")]
         public IHttpActionResult Update(Employee employee)
         {
-                if (!ModelState.IsValid)
+            try
+            {
+                if (employee.Id > 0)
                 {
-                    return BadRequest(ModelState);
-                }
-                try
-                {
+                    //    return InternalServerError();
+                    //}
+                    //    if (!ModelState.IsValid)
+                    //    {
+                    //        return BadRequest(ModelState);
+                    //    }
+                    //    try
+                    //    {
+                    //    if em
                     Employee objEmp = new Employee();
-                    objEmp = db.Employees.Find(employee.Id);
-                    if (objEmp != null)
-                    {
-                        objEmp.Name = employee.Name;
-                        objEmp.City = employee.City;
-                        objEmp.Address = employee.Address;
-                    }
-                int i = this.db.SaveChanges();
+                    objEmp.Name = employee.Name;
+                    objEmp.City = employee.City;
+                    objEmp.Address = employee.Address;
+                    db.SaveChanges();
+                    return Ok(employee);
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
-                return Ok(employee);
-
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Ok(employee);
+
         }
+    }
     }
 

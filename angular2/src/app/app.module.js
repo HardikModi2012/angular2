@@ -17,11 +17,13 @@ var employee_details_component_1 = require("./employee/employee-details.componen
 var pagenotfound_component_1 = require("./employee/pagenotfound.component");
 var home_component_1 = require("./employee/home.component");
 var add_component_1 = require("./employee/add.component");
+var edit_component_1 = require("./employee/edit.component");
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'ListOfEmployee', component: employee_list_component_1.employeeListComponent1 },
     { path: 'emp-details', component: employee_details_component_1.employeeDetailscomponent },
     { path: 'addEmployee', component: add_component_1.addEmployee },
+    { path: 'editEmployee', component: edit_component_1.editEmployee },
     { path: 'home', component: home_component_1.homecomponent },
     { path: '**', component: pagenotfound_component_1.pagenotfound }
 ];
@@ -31,7 +33,8 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, router_1.RouterModule.forRoot(appRoutes)],
-            declarations: [app_component_1.AppComponent, employee_list_component_1.employeeListComponent1, employee_details_component_1.employeeDetailscomponent, pagenotfound_component_1.pagenotfound, add_component_1.addEmployee, home_component_1.homecomponent],
+            declarations: [app_component_1.AppComponent, employee_list_component_1.employeeListComponent1, employee_details_component_1.employeeDetailscomponent, pagenotfound_component_1.pagenotfound,
+                add_component_1.addEmployee, edit_component_1.editEmployee, home_component_1.homecomponent],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

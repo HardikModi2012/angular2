@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-    <a routerLink="addEmployee">Add Employee</a>
+    <a routerLink="/addEmployee">Add Employee</a>
     <table border="1">
         <thead>
             <tr>
@@ -23,7 +23,7 @@
                 <td>{{employee.City}}</td>
                 <td>{{employee.Address}}</td>
                 <td>
-                    <button title="Edit" (click)="onUpdate(employee)">Edit</button>
+                    <button title="Edit" [routerLink]="['/editEmployee', {employee.Id}]">Edit</button>
                     <button title="Delete" (click)="OnDelete(employee.Id)">Delete</button>
                 </td>
             </tr>

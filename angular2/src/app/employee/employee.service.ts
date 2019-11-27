@@ -28,16 +28,17 @@ export class employeeService {
     addEmployee(emp: IEmployee): Observable<IEmployee> {
         var body = JSON.stringify(emp);
         var headerOptions = new Headers({ 'Content-Type': 'application/json' });
-        var requestoptions = new RequestOptions({ method: RequestMethod.Post });
+        var requestoptions = new RequestOptions({ headers: headerOptions });
         return this._http.post("http://localhost:60163/api/employee/InsertEmployee", body, requestoptions)
             .map((res: any) => res.json());
+        
     }
 
     updateEmployee(emp: IEmployee): Observable<IEmployee> {
         var body = JSON.stringify(emp);
         var headerOptions = new Headers({ 'Content-Type': 'application/json' });
-        var requestoptions = new RequestOptions({ method: RequestMethod.Post });
-        return this._http.put("http://localhost:60163/api/employee/UpdateEmployee", body, requestoptions)
+        var requestoptions = new RequestOptions({ headers: headerOptions });
+        return this._http.put("http://localhost:60163/api/employee/UpdateEmployee", body , requestoptions)
             .map((res: any) => res.json());
     }
 }

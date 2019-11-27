@@ -105,8 +105,8 @@
     <Content Include="bs-config.json" />
     <Content Include="package.json" />
     <Content Include="src\app\employee\add.component.html" />
+    <Content Include="src\app\employee\edit.component.html" />
     <Content Include="src\app\employee\home.component.html" />
-    <Content Include="src\app\employee\list-employee.component.html" />
     <Content Include="src\app\employee\list.component.html" />
     <Content Include="src\tsconfig.json" />
     <Content Include="tslint.json" />
@@ -141,6 +141,7 @@
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\employee\add.component.ts" />
+    <TypeScriptCompile Include="src\app\employee\edit.component.ts" />
     <TypeScriptCompile Include="src\app\employee\employee-details.component.ts" />
     <TypeScriptCompile Include="src\app\employee\employee-list.component.ts" />
     <Content Include="src\app\employee\employee-details.comonent.html" />

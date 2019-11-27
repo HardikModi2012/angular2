@@ -32,14 +32,14 @@ var employeeService = /** @class */ (function () {
     employeeService.prototype.addEmployee = function (emp) {
         var body = JSON.stringify(emp);
         var headerOptions = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var requestoptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post });
+        var requestoptions = new http_1.RequestOptions({ headers: headerOptions });
         return this._http.post("http://localhost:60163/api/employee/InsertEmployee", body, requestoptions)
             .map(function (res) { return res.json(); });
     };
     employeeService.prototype.updateEmployee = function (emp) {
         var body = JSON.stringify(emp);
         var headerOptions = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var requestoptions = new http_1.RequestOptions({ method: http_1.RequestMethod.Post });
+        var requestoptions = new http_1.RequestOptions({ headers: headerOptions });
         return this._http.put("http://localhost:60163/api/employee/UpdateEmployee", body, requestoptions)
             .map(function (res) { return res.json(); });
     };
