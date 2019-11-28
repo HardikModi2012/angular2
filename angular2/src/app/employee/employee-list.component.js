@@ -36,8 +36,8 @@ var employeeListComponent1 = /** @class */ (function () {
             });
         }
     };
-    employeeListComponent1.prototype.onEdit = function (employee) {
-        this._router.navigate(["/edit/" + employee.Id]);
+    employeeListComponent1.prototype.onEdit = function (Id) {
+        this._router.navigate(["/edit/" + Id]);
         //this._employeeService.updateEmployee(employee)
         //    .subscribe((data: any) => this._employeeService.getEmployee());
     };

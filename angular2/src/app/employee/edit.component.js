@@ -11,20 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var employee_service_1 = require("../employee/employee.service");
+var router_1 = require("@angular/router");
 var editEmployee = /** @class */ (function () {
-    function editEmployee(_employeeService) {
+    function editEmployee(_route, _employeeService) {
+        this._route = _route;
         this._employeeService = _employeeService;
         this.employee = {};
     }
     editEmployee.prototype.ngOnInit = function () {
-        //this.employee.Name = "Hardik";
-        //this.employee.City = "Mumbai";
-        //this.employee.Address = "Ahmd";
+        var _this = this;
+        this._route.params.subscribe(function (params) {
+            _this.id = +params['id'];
+        });
         this.onGet();
     };
     editEmployee.prototype.onGet = function () {
         var _this = this;
-        this._employeeService.getEmployeeById()
+        this._employeeService.getEmployeeById(this.id)
             .subscribe(function (emp) { return _this.employee = emp; });
     };
     editEmployee.prototype.OnDelete = function (Id) {
@@ -45,12 +48,12 @@ var editEmployee = /** @class */ (function () {
     editEmployee.prototype.onUpdate = function (checkoutForm) {
         var _this = this;
         this._employeeService.updateEmployee(checkoutForm.value)
-            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
+            .subscribe(function (data) { return _this.onGet(); });
     };
     editEmployee.prototype.insertEmployee = function (checkoutForm) {
         var _this = this;
         this._employeeService.addEmployee(checkoutForm.value)
-            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
+            .subscribe(function (data) { return _this.onGet(); });
     };
     editEmployee = __decorate([
         core_1.Component({
@@ -58,7 +61,7 @@ var editEmployee = /** @class */ (function () {
             templateUrl: 'app/employee/edit.component.html',
             providers: [employee_service_1.employeeService]
         }),
-        __metadata("design:paramtypes", [employee_service_1.employeeService])
+        __metadata("design:paramtypes", [router_1.ActivatedRoute, employee_service_1.employeeService])
     ], editEmployee);
     return editEmployee;
 }());

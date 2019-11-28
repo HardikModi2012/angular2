@@ -20,7 +20,6 @@ export class employeeListComponent1 implements OnInit {
     constructor(private _router: Router, private _employeeService: employeeService) { }
 
     ngOnInit() {
-
         this.onGet();
 
     }
@@ -40,8 +39,8 @@ export class employeeListComponent1 implements OnInit {
         }
     }
 
-    onEdit(employee: IEmployee) {
-        this._router.navigate(["/edit/" + employee.Id]);
+    onEdit(Id: number) {
+        this._router.navigate(["/edit/" + Id]);
         //this._employeeService.updateEmployee(employee)
         //    .subscribe((data: any) => this._employeeService.getEmployee());
     }

@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     { path: 'ListOfEmployee', component: employeeListComponent1 },
     { path: 'emp-details', component: employeeDetailscomponent },
     { path: 'addEmployee', component: addEmployee },
-    { path: 'edit', component: editEmployee },
+    { path: 'edit/:id', component: editEmployee },
     { path: 'home', component: homecomponent },
     { path: '**', component: pagenotfound }
 ];

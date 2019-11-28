@@ -6,24 +6,26 @@
 </head>
 <body>
     <form (ngSubmit)="onSubmit(checkoutForm)" #checkoutForm="ngForm">
+        <input id="id" type="hidden" class="form-control" name="id"
+               [(ngModel)]="employee.Id" #id="ngModel" >
         <div class="form-group">
             <label>Name</label>
             <input id="name" type="text" class="form-control" name="name"
-                   [(ngModel)]="employee.Name" #myname="ngModel" required>
+                   [(ngModel)]="employee.Name" #name="ngModel" required>
         </div>
         <div class="form-group">
             <label for="city">
                 city
             </label>
             <input id="city" type="text" class="form-control" name="city"
-                   [(ngModel)]="employee.City" #city="ngModel" required value="Mumbai">
+                   [(ngModel)]="employee.City" #city="ngModel" required >
         </div>
         <div class="form-group">
             <label for="address">
                 Address
             </label>
             <input id="address" type="text" class="form-control" name="address"
-                   [(ngModel)]="employee.Address" #address="ngModel" required value="Ahmd">
+                   [(ngModel)]="employee.Address" #address="ngModel" required >
         </div>
 
         <button class="btn btn-success" type="submit" [disabled]="!checkoutForm.form.valid">Add</button>

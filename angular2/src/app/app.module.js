@@ -23,7 +23,7 @@ var appRoutes = [
     { path: 'ListOfEmployee', component: employee_list_component_1.employeeListComponent1 },
     { path: 'emp-details', component: employee_details_component_1.employeeDetailscomponent },
     { path: 'addEmployee', component: add_component_1.addEmployee },
-    { path: 'edit', component: edit_component_1.editEmployee },
+    { path: 'edit/:id', component: edit_component_1.editEmployee },
     { path: 'home', component: home_component_1.homecomponent },
     { path: '**', component: pagenotfound_component_1.pagenotfound }
 ];
