@@ -272,7 +272,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>employeeModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\empModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>empModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\empModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\empModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>empModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\registration.cs">
+      <DependentUpon>empModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -294,6 +312,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>employeeModel.edmx</DependentUpon>
       <LastGenOutput>employeeModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\empModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>empModel.edmx</DependentUpon>
+      <LastGenOutput>empModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\empModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>empModel.edmx</DependentUpon>
+      <LastGenOutput>empModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -327,6 +355,13 @@
     </EntityDeploy>
     <Content Include="Models\employeeModel.edmx.diagram">
       <DependentUpon>employeeModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\empModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>empModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\empModel.edmx.diagram">
+      <DependentUpon>empModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

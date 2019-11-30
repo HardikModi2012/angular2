@@ -40,7 +40,7 @@ var editEmployee = /** @class */ (function () {
         }
     };
     editEmployee.prototype.onSubmit = function (checkoutForm) {
-        if (checkoutForm.value.Id == null)
+        if (checkoutForm.value == null)
             this.insertEmployee(checkoutForm);
         else
             this.onUpdate(checkoutForm);
@@ -49,6 +49,7 @@ var editEmployee = /** @class */ (function () {
         var _this = this;
         this._employeeService.updateEmployee(checkoutForm.value)
             .subscribe(function (data) { return _this.onGet(); });
+        //this._employeeService.selectedEmployee = Object.assign({}, checkoutForm.
     };
     editEmployee.prototype.insertEmployee = function (checkoutForm) {
         var _this = this;

@@ -16,6 +16,12 @@ var employeeListComponent1 = /** @class */ (function () {
     function employeeListComponent1(_router, _employeeService) {
         this._router = _router;
         this._employeeService = _employeeService;
+        this.departments = [
+            { id: 1, name: "HR" },
+            { id: 2, name: "it" },
+            { id: 3, name: "payroll" },
+            { id: 4, name: "help desk" },
+        ];
         this.employeeIdUpdate = null;
     }
     employeeListComponent1.prototype.ngOnInit = function () {

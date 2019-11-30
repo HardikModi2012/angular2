@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { IEmployee } from './IEmployee';
+import { Department } from './department.model';
 import { employeeService } from '../employee/employee.service';
 import { NgForm } from '@angular/forms';
 import { Router  } from '@angular/router';
@@ -12,6 +13,15 @@ import { Router  } from '@angular/router';
 })
 
 export class employeeListComponent1 implements OnInit {
+    departments: Department[] =
+        [
+            { id: 1, name: "HR" },
+            { id: 2, name: "it" },
+            { id: 3, name: "payroll" },
+            { id: 4, name: "help desk" },
+
+        ];
+
     employees: IEmployee[];
     employee: IEmployee;
     employeeIdUpdate: number = null;

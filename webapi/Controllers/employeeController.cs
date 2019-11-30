@@ -13,34 +13,34 @@ namespace webapi.Controllers
     [RoutePrefix("api/employee")]
     public class employeeController : ApiController
     {
-        SampleDBEntities db = new SampleDBEntities();
+        SampleDBEntities1 db = new SampleDBEntities1();
 
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public IEnumerable<registration> Get()
         {
-            using (SampleDBEntities db = new SampleDBEntities())
+            using (SampleDBEntities1 db = new SampleDBEntities1())
             {
-                return db.Employees.ToList();
+                return db.registrations.ToList();
             }
         }
 
         [HttpGet]
         [Route("details/{id}")]
-        public Employee details(int id)
+        public registration details(int id)
         {
-            using (SampleDBEntities db = new SampleDBEntities())
+            using (SampleDBEntities1 db = new SampleDBEntities1())
             {
-                return db.Employees.FirstOrDefault(e => e.Id == id);
+                return db.registrations.FirstOrDefault(e => e.Id == id);
             }
         }
 
         [HttpGet]
         [Route("FindEmployee/{id}")]
-        public Employee Get(int id)
+        public registration Get(int id)
         {
-            using (SampleDBEntities db = new SampleDBEntities())
+            using (SampleDBEntities1 db = new SampleDBEntities1())
             {
-                return db.Employees.FirstOrDefault(e => e.Id == id);
+                return db.registrations.FirstOrDefault(e => e.Id == id);
             }
         }
 
@@ -48,15 +48,15 @@ namespace webapi.Controllers
         [Route("deleteEmployee/{id}")]
         public IHttpActionResult delete(int id)
         {
-            using (SampleDBEntities db = new SampleDBEntities())
+            using (SampleDBEntities1 db = new SampleDBEntities1())
             {
-                Employee employee = db.Employees.Find(id);
+                registration employee = db.registrations.Find(id);
                 {
                     if (employee == null)
                     {
                         return NotFound();
                     }
-                    db.Employees.Remove(employee);
+                    db.registrations.Remove(employee);
                     db.SaveChanges();
                     return Ok(employee);
                 }
@@ -65,9 +65,9 @@ namespace webapi.Controllers
 
         [HttpPost]
         [Route("InsertEmployee")]
-        public IHttpActionResult Post(Employee employee)
+        public IHttpActionResult Post(registration employee)
         {
-            using (SampleDBEntities db = new SampleDBEntities())
+            using (SampleDBEntities1 db = new SampleDBEntities1())
             {
                 if (!ModelState.IsValid)
                 {
@@ -75,7 +75,7 @@ namespace webapi.Controllers
                 }
                 try
                 {
-                    db.Employees.Add(employee);
+                    db.registrations.Add(employee);
                     db.SaveChanges();
                 }
                 catch (Exception ex)
@@ -89,16 +89,26 @@ namespace webapi.Controllers
 
         [HttpPut]
         [Route("UpdateEmployee")]
-        public IHttpActionResult Update(Employee employee)
+        public IHttpActionResult Update(registration employee)
         {
             if (employee.Id != employee.Id)
             {
                 return BadRequest();
             }
-            db.Entry(employee).State = EntityState.Modified;
 
             try
             {
+
+                var updatedUser = db.registrations.SingleOrDefault(x => x.Id == employee.Id);
+
+                updatedUser.name = employee.name;
+                updatedUser.city = employee.city;
+                updatedUser.gender = employee.gender;
+                updatedUser.department = employee.department;
+                updatedUser.email = employee.email;
+                updatedUser.contact = employee.contact;
+                db.Entry(updatedUser).State = EntityState.Modified;
+
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -112,17 +122,17 @@ namespace webapi.Controllers
                     throw;
                 }
             }
-            //Employee objEmp = new Employee();
-            //objEmp.Name = employee.Name;
-            //objEmp.City = employee.City;
-            //objEmp.Address = employee.Address;
-            //db.SaveChanges();
-            return Ok(employee);
+            //    //Employee objEmp = new Employee();
+            //    //objEmp.Name = employee.Name;
+            //    //objEmp.City = employee.City;
+            //    //objEmp.Address = employee.Address;
+            //    //db.SaveChanges();
+             return Ok(employee);
+            }
+            private bool EmployeeExists(int id)
+            {
+            return db.registrations.Count(e => e.Id == id) > 0;
+            }
         }
-        private bool EmployeeExists(int id)
-        {
-            return db.Employees.Count(e => e.Id == id) > 0;
-        }
-    }
 
 }

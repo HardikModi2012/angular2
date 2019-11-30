@@ -17,7 +17,10 @@ var addEmployee = /** @class */ (function () {
         this.employee = {};
     }
     addEmployee.prototype.ngOnInit = function () {
-        this.onGet();
+    };
+    addEmployee.prototype.resetForm = function (checkoutForm) {
+        if (checkoutForm != null)
+            checkoutForm.reset();
     };
     addEmployee.prototype.onGet = function () {
         var _this = this;

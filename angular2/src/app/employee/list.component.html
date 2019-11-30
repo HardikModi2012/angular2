@@ -15,17 +15,22 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>City</th>
-                        <th>Address</th>
-                        <th>Actions</th>
+                        <th>gender</th>
+                        <th>department</th>
+                        <th>email</th>
+                        <th>contact</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let employee of employees;">
                         <td>{{employee.Id}}</td>
-                        <td>{{employee.Name}}</td>
-                        <td>{{employee.City}}</td>
-                        <td>{{employee.Address}}</td>
-
+                        <td>{{employee.name}}</td>
+                        <td>{{employee.city}}</td>
+                        <td>{{employee.gender}}</td>
+                        <td>{{employee.department}}</td>
+                        <td>{{employee.email}}</td>
+                        <td>{{employee.contact}}</td>
                         <td>
                             <button class="btn btn-default" title="Edit" (click)="onEdit(employee.Id)">Edit</button>
                             <button class="btn btn-danger" title="Delete" (click)="OnDelete(employee.Id)">Delete</button>

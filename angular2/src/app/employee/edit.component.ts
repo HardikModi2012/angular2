@@ -39,7 +39,7 @@ export class editEmployee implements OnInit {
     }
 
     onSubmit(checkoutForm: NgForm) {
-        if (checkoutForm.value.Id == null)
+        if (checkoutForm.value == null)
             this.insertEmployee(checkoutForm);
         else
             this.onUpdate(checkoutForm);
@@ -49,6 +49,7 @@ export class editEmployee implements OnInit {
     onUpdate(checkoutForm: NgForm) {
         this._employeeService.updateEmployee(checkoutForm.value)
             .subscribe((data: any) => this.onGet());
+        //this._employeeService.selectedEmployee = Object.assign({}, checkoutForm.
     }
 
     insertEmployee(checkoutForm: NgForm) {

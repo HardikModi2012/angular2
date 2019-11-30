@@ -7,6 +7,7 @@ import  'rxjs/add/operator/map';
 @Injectable()
 export class employeeService {
 
+    selectedEmployee: IEmployee;
     constructor(private _http: Http) { }
 
     getEmployee() {

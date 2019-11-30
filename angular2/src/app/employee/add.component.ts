@@ -14,10 +14,18 @@ export class addEmployee implements OnInit {
     employees: IEmployee[];
     employee: IEmployee = {} as IEmployee;
 
+
+ 
     constructor(private _employeeService: employeeService) { }
 
     ngOnInit() {
-        this.onGet();
+        
+
+    }
+
+    resetForm(checkoutForm: NgForm) {
+        if (checkoutForm != null)
+            checkoutForm.reset();
 
     }
     onGet() {
