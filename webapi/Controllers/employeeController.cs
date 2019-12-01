@@ -5,6 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using webapi.Models;
 
@@ -24,14 +25,30 @@ namespace webapi.Controllers
             }
         }
 
-        [HttpGet]
+        //An async has await expression, await creates an understanding between async and 
+        //promise and holds async function to wait till the promise is return.
+           // As soon as promise return the value the async function gets executed.
+          //  By using await expression you overcome using addition setTimeout() function inside you promise.
+
+
+
+       [HttpGet]
         [Route("details/{id}")]
-        public registration details(int id)
+        public async Task < IHttpActionResult  > details(int id)
         {
-            using (SampleDBEntities1 db = new SampleDBEntities1())
+            if (!ModelState.IsValid)
             {
-                return db.registrations.FirstOrDefault(e => e.Id == id);
+                return BadRequest(ModelState);
             }
+
+            var employee = await db.registrations.SingleOrDefaultAsync(e => e.Id == id);
+
+            if (employee == null)
+            {
+                return NotFound();
+
+            }
+            return Ok(employee);
         }
 
         [HttpGet]
@@ -89,7 +106,7 @@ namespace webapi.Controllers
 
         [HttpPut]
         [Route("UpdateEmployee")]
-        public IHttpActionResult Update(registration employee)
+        public async Task< IHttpActionResult> Update(registration employee)
         {
             if (employee.Id != employee.Id)
             {
@@ -109,7 +126,7 @@ namespace webapi.Controllers
                 updatedUser.contact = employee.contact;
                 db.Entry(updatedUser).State = EntityState.Modified;
 
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -122,16 +139,11 @@ namespace webapi.Controllers
                     throw;
                 }
             }
-            //    //Employee objEmp = new Employee();
-            //    //objEmp.Name = employee.Name;
-            //    //objEmp.City = employee.City;
-            //    //objEmp.Address = employee.Address;
-            //    //db.SaveChanges();
              return Ok(employee);
             }
             private bool EmployeeExists(int id)
             {
-            return db.registrations.Count(e => e.Id == id) > 0;
+            return db.registrations.Any(e => e.Id == id);
             }
         }
 

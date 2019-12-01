@@ -35,7 +35,7 @@ var editEmployee = /** @class */ (function () {
         if (confirm("r u sure") == true) {
             this._employeeService.deleteEmployee(Id)
                 .subscribe(function (x) {
-                _this._employeeService.getEmployee();
+                _this._employeeService.getEmployees();
             });
         }
     };

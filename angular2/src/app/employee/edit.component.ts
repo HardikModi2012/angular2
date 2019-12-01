@@ -33,7 +33,7 @@ export class editEmployee implements OnInit {
         if (confirm("r u sure") == true) {
             this._employeeService.deleteEmployee(Id)
                 .subscribe((x: any) => {
-                    this._employeeService.getEmployee();
+                    this._employeeService.getEmployees();
                 })
         }
     }

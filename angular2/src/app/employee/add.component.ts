@@ -29,14 +29,14 @@ export class addEmployee implements OnInit {
 
     }
     onGet() {
-        this._employeeService.getEmployee()
-            .subscribe(emp => this.employees = emp);
+        this._employeeService.getEmployees()
+            .subscribe((emp: any) => this.employees = emp);
     }
     OnDelete(Id: number) {
         if (confirm("r u sure") == true) {
             this._employeeService.deleteEmployee(Id)
                 .subscribe((x: any) => {
-                    this._employeeService.getEmployee();
+                    this._employeeService.getEmployees();
                 })
         }
     }
@@ -51,7 +51,7 @@ export class addEmployee implements OnInit {
 
     onUpdate(checkoutForm: NgForm) {
         this._employeeService.updateEmployee(checkoutForm.value)
-            .subscribe((data: any) => this._employeeService.getEmployee());
+            .subscribe((data: any) => this._employeeService.getEmployees());
     }
 
     insertEmployee(checkoutForm: NgForm) {

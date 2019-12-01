@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var employee_service_1 = require("../employee/employee.service");
 var router_1 = require("@angular/router");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/filter");
+require("rxjs/add/operator/map");
 var employeeListComponent1 = /** @class */ (function () {
     function employeeListComponent1(_router, _employeeService) {
         this._router = _router;
@@ -28,14 +31,12 @@ var employeeListComponent1 = /** @class */ (function () {
         this.onGet();
     };
     employeeListComponent1.prototype.onGet = function () {
-        var _this = this;
-        this._employeeService.getEmployee()
-            .subscribe(function (emp) { return _this.employees = emp; });
+        this._employeeService.getEmployees();
     };
-    employeeListComponent1.prototype.OnDelete = function (Id) {
+    employeeListComponent1.prototype.OnDelete = function (id) {
         var _this = this;
         if (confirm("r u sure") == true) {
-            this._employeeService.deleteEmployee(Id)
+            this._employeeService.deleteEmployee(id)
                 .subscribe(function (x) {
                 //this._employeeService.getEmployee();
                 _this.onGet();
@@ -61,13 +62,6 @@ var employeeListComponent1 = /** @class */ (function () {
                 _this.employeeIdUpdate = null;
             });
         }
-        //loadEmployeeToEdit(Id: number)
-        //{
-        //    this._employeeService.getEmployeeById(Id).subscribe(emp =>
-        //        this.employeeIdUpdate = emp.Id;
-        //        this.checkoutForm.controls['Name'].setValue(employee.Name);
-        //        this.checkoutForm.controls['City'].setValue(employee.City);
-        //        this.checkoutForm.controls['Name'].setValue(employee.Name);
         //}   
         //onSubmit(form: NgForm) {
         //    if (form.value.Id == null) {

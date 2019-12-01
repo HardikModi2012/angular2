@@ -1,10 +1,11 @@
 ﻿<form (ngSubmit)="onSubmit(checkoutForm)" #checkoutForm="ngForm">
-    <div class="form-group col-md-6" [class.has-error]="name.invalid && name.touched"
-         [class.has-success]="name.valid">
-        <label>Name</label>
-        <input id="name" type="text" class="col-sm-2 form-control" name="name"
-               [(ngModel)]="employee.name" #name="ngModel" required>
-        <span *ngIf="name.error && name.error.required && name.touched">
+
+    <div class="form-group"
+         [class.has-error]="name.invalid && name.touched">
+        <label for="name" class="control-label">Name</label>
+        <input id="name" type="text" class="form-control" name="name" 
+               [(ngModel)]="employee.Name" #name="ngModel" required>
+        <span class="help-block" *ngIf="name.invalid && name.touched">
             First name is  required
         </span>
     </div>
@@ -15,19 +16,19 @@
             city
         </label>
         <input id="city" type="text" class="form-control" name="city"
-               [(ngModel)]="employee.city" #city="ngModel" required>
+               [(ngModel)]="employee.city" #city1="ngModel" required>
     </div>
 
     <div class="form-group col-md-6" [class.has-error]="gender.invalid" [class.has-success]="gender.valid">
         <label class="control-label">gender</label>
         <div>
             <label class="radio-inline">
-                <input type="radio" name="gender" value="male"
-                       [(ngModel)]="employee.gender" #gender="ngModel" required>Male
+                <input type="radio" name="gender" value="male" gender
+                       [(ngModel)]="employee.gender" #gender1="ngModel" required>Male
             </label>
             <label class="radio-inline">
-                <input type="radio" name="gender"
-                       [(ngModel)]="employee.gender" #gender="ngModel" required>female
+                <input type="radio" name="gender" gender value="female"
+                       [(ngModel)]="employee.gender" #gender2="ngModel" required>female
             </label>
         </div>
         <!--<span class="help-block" *ngIf="gender.invalid">
@@ -51,22 +52,16 @@
         </span>-->
   <!--  </div>-->
 
-    <div class="form-group"  [class.has-error]="department.invalid" [class.has-success]="department.valid">
-        <label for="department">Department</label>
-        <select id="department" name="department" [(ngModel)]="department" type="text"
-                class="form-control">
+    <div class="form-group"  [class.has-error]="department.touched && department.invalid">
+        <label for="department" class="control-label">
+        Department
+        </label>
+        <select id="department" name="department" [(ngModel)]="employee.department" #department="ngModel"
+                class="form-control" required>
             <option *ngFor="let dept of departments" [value]="dept.id">
                 {{dept.name}}
             </option>
         </select>
-    </div>
-
-    <div class="form-group col-md-6">
-        <label for="department">
-            department
-        </label>
-        <input id="department" type="text" class="form-control" name="department"
-               [(ngModel)]="employee.department" #departmenttxt="ngModel" required>
     </div>
 
     <div class="form-group col-md-6">

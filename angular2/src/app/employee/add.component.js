@@ -24,7 +24,7 @@ var addEmployee = /** @class */ (function () {
     };
     addEmployee.prototype.onGet = function () {
         var _this = this;
-        this._employeeService.getEmployee()
+        this._employeeService.getEmployees()
             .subscribe(function (emp) { return _this.employees = emp; });
     };
     addEmployee.prototype.OnDelete = function (Id) {
@@ -32,7 +32,7 @@ var addEmployee = /** @class */ (function () {
         if (confirm("r u sure") == true) {
             this._employeeService.deleteEmployee(Id)
                 .subscribe(function (x) {
-                _this._employeeService.getEmployee();
+                _this._employeeService.getEmployees();
             });
         }
     };
@@ -45,7 +45,7 @@ var addEmployee = /** @class */ (function () {
     addEmployee.prototype.onUpdate = function (checkoutForm) {
         var _this = this;
         this._employeeService.updateEmployee(checkoutForm.value)
-            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
+            .subscribe(function (data) { return _this._employeeService.getEmployees(); });
     };
     addEmployee.prototype.insertEmployee = function (checkoutForm) {
         var _this = this;

@@ -2,7 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { employeeListComponent1 } from './employee/employee-list.component';
@@ -23,7 +23,7 @@ const appRoutes: Routes = [
     { path: '**', component: pagenotfound }
 ];
 @NgModule({
-    imports: [BrowserModule, FormsModule , HttpModule, RouterModule.forRoot(appRoutes)],
+    imports: [BrowserModule, FormsModule , HttpClientModule, RouterModule.forRoot(appRoutes)],
     declarations: [AppComponent, employeeListComponent1, employeeDetailscomponent, pagenotfound,
         addEmployee, editEmployee , homecomponent],
   bootstrap:    [ AppComponent ]

@@ -3,7 +3,11 @@ import { IEmployee } from './IEmployee';
 import { Department } from './department.model';
 import { employeeService } from '../employee/employee.service';
 import { NgForm } from '@angular/forms';
-import { Router  } from '@angular/router';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'ListOfEmployee',
@@ -34,14 +38,14 @@ export class employeeListComponent1 implements OnInit {
 
     }
     onGet() {
-        this._employeeService.getEmployee()
-            .subscribe(emp => this.employees = emp);
+        this._employeeService.getEmployees();
+            
     }
 
 
-    OnDelete(Id: number) {
+    OnDelete(id: number) {
         if (confirm("r u sure") == true) {
-            this._employeeService.deleteEmployee(Id)
+            this._employeeService.deleteEmployee(id)
                 .subscribe((x: any) => {
                     //this._employeeService.getEmployee();
                     this.onGet();
@@ -70,13 +74,6 @@ export class employeeListComponent1 implements OnInit {
             });
         }
 
-        //loadEmployeeToEdit(Id: number)
-        //{
-        //    this._employeeService.getEmployeeById(Id).subscribe(emp =>
-        //        this.employeeIdUpdate = emp.Id;
-        //        this.checkoutForm.controls['Name'].setValue(employee.Name);
-        //        this.checkoutForm.controls['City'].setValue(employee.City);
-        //        this.checkoutForm.controls['Name'].setValue(employee.Name);
 
         //}   
         //onSubmit(form: NgForm) {
