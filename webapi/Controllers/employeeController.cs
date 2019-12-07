@@ -5,7 +5,6 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using webapi.Models;
 
@@ -27,28 +26,19 @@ namespace webapi.Controllers
 
         //An async has await expression, await creates an understanding between async and 
         //promise and holds async function to wait till the promise is return.
-           // As soon as promise return the value the async function gets executed.
-          //  By using await expression you overcome using addition setTimeout() function inside you promise.
+        // As soon as promise return the value the async function gets executed.
+        //  By using await expression you overcome using addition setTimeout() function inside you promise.
 
 
 
-       [HttpGet]
+        [HttpGet]
         [Route("details/{id}")]
-        public async Task < IHttpActionResult  > details(int id)
+        public registration details(int id)
         {
-            if (!ModelState.IsValid)
+            using (SampleDBEntities1 db = new SampleDBEntities1())
             {
-                return BadRequest(ModelState);
+                return db.registrations.FirstOrDefault(e => e.Id == id);
             }
-
-            var employee = await db.registrations.SingleOrDefaultAsync(e => e.Id == id);
-
-            if (employee == null)
-            {
-                return NotFound();
-
-            }
-            return Ok(employee);
         }
 
         [HttpGet]
@@ -106,7 +96,7 @@ namespace webapi.Controllers
 
         [HttpPut]
         [Route("UpdateEmployee")]
-        public async Task< IHttpActionResult> Update(registration employee)
+        public IHttpActionResult Update(registration employee)
         {
             if (employee.Id != employee.Id)
             {
@@ -126,7 +116,7 @@ namespace webapi.Controllers
                 updatedUser.contact = employee.contact;
                 db.Entry(updatedUser).State = EntityState.Modified;
 
-                await db.SaveChangesAsync();
+                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {

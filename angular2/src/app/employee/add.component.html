@@ -1,60 +1,50 @@
 ﻿<form (ngSubmit)="onSubmit(checkoutForm)" #checkoutForm="ngForm">
 
-    <div class="form-group"
-         [class.has-error]="name.invalid && name.touched">
+    <div class="form-group" [class.has-error]="name.invalid && name.touched"
+         [class.has-success]="name.valid">
         <label for="name" class="control-label">Name</label>
-        <input id="name" type="text" class="form-control" name="name" 
-               [(ngModel)]="employee.Name" #name="ngModel" required>
-        <span class="help-block" *ngIf="name.invalid && name.touched">
+
+        <input id="name" required type="text" class="form-control" name="name"
+               [(ngModel)]="employee.name" #name="ngModel">
+        <span *ngIf="name.errors && name.errors.required && name.touched">
             First name is  required
         </span>
     </div>
 
-    <div class="form-group col-md-6" [class.has-error]="city.invalid && city.touched"
+    <div class="form-group" [class.has-error]="city.invalid &&  (city.dirty || city.touched)"
          [class.has-success]="city.valid">
         <label for="city">
             city
         </label>
-        <input id="city" type="text" class="form-control" name="city"
-               [(ngModel)]="employee.city" #city1="ngModel" required>
+        <input id="city" type="text" class="form-control" name="city" pattern="[a-zA-Z][a-zA-Z ]+"
+               [(ngModel)]="employee.city" #city="ngModel" required>
+        <span class="help-block" *ngIf="city.invalid && city.touched">
+            <span *ngIf="city.errors && city.errors.required">city Required.</span>
+            <span *ngIf="city.errors && city.errors.pattern">city shall match pattern.</span>
+        </span>
     </div>
 
-    <div class="form-group col-md-6" [class.has-error]="gender.invalid" [class.has-success]="gender.valid">
-        <label class="control-label">gender</label>
-        <div>
+    <div class="form-group" [class.has-error]="gender?.invalid &&  (gender.dirty || gender.touched)"
+         [class.has-success]="gender.valid">
+        <label class="control-label">Gender</label>
+        <div class="form-control">
             <label class="radio-inline">
-                <input type="radio" name="gender" value="male" gender
-                       [(ngModel)]="employee.gender" #gender1="ngModel" required>Male
+                <input type="radio" name="gender" required #gender="ngModel"
+                       value="male" [(ngModel)]="employee.gender"> Male
             </label>
             <label class="radio-inline">
-                <input type="radio" name="gender" gender value="female"
-                       [(ngModel)]="employee.gender" #gender2="ngModel" required>female
+                <input type="radio" name="gender" required #gender="ngModel"
+                       value="female" [(ngModel)]="employee.gender"> Female
             </label>
         </div>
-        <!--<span class="help-block" *ngIf="gender.invalid">
-            Gender is required
-        </span>-->
+        <span class="help-block" *ngIf="gender.invalid && gender.required">
+            gender is required
+        </span>
     </div>
 
-   
-     <!--<div class="form-group" [class.has-error]="department.invalid" [class.has-success]="department.valid">
+    <div class="form-group" [class.has-error]="department.touched && department.invalid">
         <label for="department" class="control-label">
-            department
-        </label>
-        <select id="department" type="text" class="form-control" name="department"
-                [(ngModel)]="employee.department" #department="ngModel" required">
-            <option *ngFor="let dept of departments" [value]="dept.id">
-                {{dept.name}}
-            </option>
-        </select>-->
-        <!--<span class="help-block" *ngIf="department.touched && department.invalid">
-            department is required
-        </span>-->
-  <!--  </div>-->
-
-    <div class="form-group"  [class.has-error]="department.touched && department.invalid">
-        <label for="department" class="control-label">
-        Department
+            Department
         </label>
         <select id="department" name="department" [(ngModel)]="employee.department" #department="ngModel"
                 class="form-control" required>
@@ -62,26 +52,41 @@
                 {{dept.name}}
             </option>
         </select>
+        <span class="help-block" *ngIf="department.invalid && department.touched">
+            <span *ngIf="department.errors && department.errors.required">department Required.</span>
+        </span>
     </div>
 
-    <div class="form-group col-md-6">
-        <label for="email">
-            email
-        </label>
-        <input id="email" type="text" class="form-control" name="email"
-               [(ngModel)]="employee.email" #email="ngModel" required>
+    <div class="form-group" [class.has-error]="email?.invalid &&  (email.dirty || email.touched)"
+         [class.has-success]="email.valid">
+        <label for="email" class="control-label">email</label>
+        <input id="email" required type="text" class="form-control" name="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+               [(ngModel)]="employee.email" #email="ngModel">
+        <span class="help-block" *ngIf="email.invalid && email.touched">
+            <span *ngIf="email.errors && email.errors.required">email Required.</span>
+            <span *ngIf="email.errors && email.errors.pattern">email shall match pattern.</span>
+        </span>
     </div>
 
 
-    <div class="form-group col-md-6">
-        <label for="contact">
-            contact
-        </label>
-        <input id="contact" type="text" class="form-control" name="contact"
-               [(ngModel)]="employee.contact" #contact="ngModel" required>
+    <div class="form-group" [class.has-error]="contact?.invalid &&  (contact.dirty || contact.touched)"
+         [class.has-success]="contact.valid">
+        <label for="contact" class="control-label">contact</label>
+        <input id="contact" type="text" class="form-control" name="contact" pattern="[0-9]*" maxlength="10"
+               minlength="10" [(ngModel)]="employee.contact" #contact="ngModel" required>
+        <span class="help-block" *ngIf="contact.invalid && contact.touched">
+            <span *ngIf="contact.errors && contact.errors.required">contact Required.</span>
+            <span *ngIf="contact.errors && contact.errors.pattern">contact shall match pattern.</span>
+        </span>
     </div>
 
-    <button class="btn btn-primary" type="submit" [disabled]="!checkoutForm.form.valid">Add</button>
-
+    <button class="btn btn-primary" type="submit" [disabled]="checkoutForm.invalid">Add</button>
 </form>
 
+{{ employee.Id}}
+{{ employee.name}}
+{{ employee.city}}
+{{ employee.gender}}
+{{ employee.department}}
+{{ employee.email}}
+{{ employee.contact}}

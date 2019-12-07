@@ -1,5 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit , ViewChild} from '@angular/core';
 import { IEmployee } from './IEmployee';
+import { Department } from './Department';
 import { employeeService } from '../employee/employee.service';
 import { NgForm } from '@angular/forms';
 
@@ -11,8 +12,18 @@ import { NgForm } from '@angular/forms';
 })
 
 export class addEmployee implements OnInit {
+    @ViewChild('checkoutForm') public createEmployeeFORM: NgForm
+
     employees: IEmployee[];
     employee: IEmployee = {} as IEmployee;
+    departments: Department[] =
+        [
+            { id: 1, name: "HR" },
+            { id: 2, name: "it" },
+            { id: 3, name: "payroll" },
+            { id: 4, name: "help desk" },
+
+        ] as Department[];
 
 
  
@@ -28,15 +39,15 @@ export class addEmployee implements OnInit {
             checkoutForm.reset();
 
     }
+
     onGet() {
-        this._employeeService.getEmployees()
-            .subscribe((emp: any) => this.employees = emp);
-    }
+        this._employeeService.getEmployee().subscribe(emp => this.employees = emp);
+}
     OnDelete(Id: number) {
         if (confirm("r u sure") == true) {
             this._employeeService.deleteEmployee(Id)
                 .subscribe((x: any) => {
-                    this._employeeService.getEmployees();
+                    this._employeeService.getEmployee();
                 })
         }
     }
@@ -51,7 +62,7 @@ export class addEmployee implements OnInit {
 
     onUpdate(checkoutForm: NgForm) {
         this._employeeService.updateEmployee(checkoutForm.value)
-            .subscribe((data: any) => this._employeeService.getEmployees());
+            .subscribe((data: any) => this._employeeService.getEmployee());
     }
 
     insertEmployee(checkoutForm: NgForm) {

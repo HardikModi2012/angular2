@@ -10,7 +10,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var http_1 = require("@angular/common/http");
+var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var employee_list_component_1 = require("./employee/employee-list.component");
 var employee_details_component_1 = require("./employee/employee-details.component");
@@ -18,11 +18,13 @@ var pagenotfound_component_1 = require("./employee/pagenotfound.component");
 var home_component_1 = require("./employee/home.component");
 var add_component_1 = require("./employee/add.component");
 var edit_component_1 = require("./employee/edit.component");
+var employee_service_1 = require("./employee/employee.service");
+var create_employee_can_deactivate_guard_service_1 = require("./employee/create-employee-can-deactivate-guard.service");
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'ListOfEmployee', component: employee_list_component_1.employeeListComponent1 },
     { path: 'emp-details', component: employee_details_component_1.employeeDetailscomponent },
-    { path: 'addEmployee', component: add_component_1.addEmployee },
+    { path: 'addEmployee', component: add_component_1.addEmployee, canDeactivate: [create_employee_can_deactivate_guard_service_1.CreateEmployeeCanDeactivateGuardService] },
     { path: 'edit/:id', component: edit_component_1.editEmployee },
     { path: 'home', component: home_component_1.homecomponent },
     { path: '**', component: pagenotfound_component_1.pagenotfound }
@@ -32,9 +34,19 @@ var AppModule = /** @class */ (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpClientModule, router_1.RouterModule.forRoot(appRoutes)],
-            declarations: [app_component_1.AppComponent, employee_list_component_1.employeeListComponent1, employee_details_component_1.employeeDetailscomponent, pagenotfound_component_1.pagenotfound,
-                add_component_1.addEmployee, edit_component_1.editEmployee, home_component_1.homecomponent],
+            imports: [platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                router_1.RouterModule.forRoot(appRoutes)],
+            declarations: [app_component_1.AppComponent,
+                employee_list_component_1.employeeListComponent1,
+                employee_details_component_1.employeeDetailscomponent,
+                pagenotfound_component_1.pagenotfound,
+                add_component_1.addEmployee,
+                edit_component_1.editEmployee,
+                home_component_1.homecomponent],
+            providers: [employee_service_1.employeeService,
+                create_employee_can_deactivate_guard_service_1.CreateEmployeeCanDeactivateGuardService],
             bootstrap: [app_component_1.AppComponent]
         })
     ], AppModule);

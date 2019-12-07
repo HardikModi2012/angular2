@@ -2,7 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { employeeListComponent1 } from './employee/employee-list.component';
@@ -11,21 +11,36 @@ import { pagenotfound } from './employee/pagenotfound.component';
 import { homecomponent } from './employee/home.component';
 import { addEmployee } from './employee/add.component';
 import { editEmployee } from './employee/edit.component';
-
+import { employeeService } from './employee/employee.service';
+import { CreateEmployeeCanDeactivateGuardService } from './employee/create-employee-can-deactivate-guard.service';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home' , pathMatch: 'full' },
     { path: 'ListOfEmployee', component: employeeListComponent1 },
     { path: 'emp-details', component: employeeDetailscomponent },
-    { path: 'addEmployee', component: addEmployee },
+    { path: 'addEmployee', component: addEmployee, canDeactivate: [CreateEmployeeCanDeactivateGuardService]},
     { path: 'edit/:id', component: editEmployee },
     { path: 'home', component: homecomponent },
     { path: '**', component: pagenotfound }
 ];
+
 @NgModule({
-    imports: [BrowserModule, FormsModule , HttpClientModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, employeeListComponent1, employeeDetailscomponent, pagenotfound,
-        addEmployee, editEmployee , homecomponent],
+    imports: [BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot(appRoutes)],
+
+    declarations: [AppComponent,
+        employeeListComponent1,
+        employeeDetailscomponent,
+        pagenotfound,
+        addEmployee,
+        editEmployee,
+        homecomponent],
+
+    providers: [employeeService,
+        CreateEmployeeCanDeactivateGuardService],
+
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

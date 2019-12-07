@@ -19,7 +19,13 @@ var employeeDetailscomponent = /** @class */ (function () {
     }
     employeeDetailscomponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.route.paramMap.subscribe(function (params) { return _this.employee = _this.employees[+params.get('Id')]; });
+        this.route.params.subscribe(function (params) {
+            _this.id = +params['id'];
+        });
+        this.onGet();
+    };
+    employeeDetailscomponent.prototype.onGet = function () {
+        this.employeeService.getEmployeeById(this.id);
     };
     employeeDetailscomponent = __decorate([
         core_1.Component({

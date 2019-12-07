@@ -1,8 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { IEmployee } from './IEmployee';
 import { employeeService } from '../employee/employee.service';
+import { Department } from './Department';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+
 @Component({
     selector: 'editEmployee',
     templateUrl: 'app/employee/edit.component.html',
@@ -15,27 +17,39 @@ export class editEmployee implements OnInit {
     employee: IEmployee = {} as IEmployee;
     id: number;
     sub: any;
+    checkoutForm: NgForm;
+    departments: Department[] =
+        [
+
+            { id: 1, name: "HR" },
+            { id: 2, name: "it" },
+            { id: 3, name: "payroll" },
+            { id: 4, name: "help desk" },
+
+        ] as Department[];
+    //departmentId = 2;
+
 
     constructor(private _route: ActivatedRoute ,private _employeeService: employeeService) { }
 
     ngOnInit() {
-        this._route.params.subscribe(params => {
+        this.sub = this._route.params.subscribe(params => {
             this.id = +params['id'];
         });
         this.onGet();
 
+
+
     }
+
+    bindEmployee(emp: any) {
+        this.employee = emp;
+        this.employee.department = "2";
+    }
+    
     onGet() {
         this._employeeService.getEmployeeById(this.id)
-            .subscribe((emp:any) => this.employee = emp);
-    }
-    OnDelete(Id: number) {
-        if (confirm("r u sure") == true) {
-            this._employeeService.deleteEmployee(Id)
-                .subscribe((x: any) => {
-                    this._employeeService.getEmployees();
-                })
-        }
+            .subscribe((emp: any) => this.bindEmployee(emp));
     }
 
     onSubmit(checkoutForm: NgForm) {
@@ -48,8 +62,9 @@ export class editEmployee implements OnInit {
 
     onUpdate(checkoutForm: NgForm) {
         this._employeeService.updateEmployee(checkoutForm.value)
-            .subscribe((data: any) => this.onGet());
-        //this._employeeService.selectedEmployee = Object.assign({}, checkoutForm.
+            .subscribe((data: any) => this.onGet()
+                , this.checkoutForm.reset
+            );
     }
 
     insertEmployee(checkoutForm: NgForm) {

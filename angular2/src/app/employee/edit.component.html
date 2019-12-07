@@ -1,17 +1,21 @@
 ﻿<form (ngSubmit)="onSubmit(checkoutForm)" #checkoutForm="ngForm">
+
     <div class="form-group" [class.has-error]="name.invalid && name.touched"
          [class.has-success]="name.valid">
-        <input id="id" type="hidden" class="form-control" name="id"
+
+        <input id="Id" type="hidden" class="form-control" name="Id"
                [(ngModel)]="employee.Id" #Id="ngModel" required>
-        <label>Name</label>
-        <input id="name" type="text" class="col-sm-2 form-control" name="name"
-               [(ngModel)]="employee.name" #name="ngModel" required>
+
+        <label for="name" class="control-label">Name</label>
+
+        <input id="name" required type="text" class="form-control" name="name" 
+               [(ngModel)]="employee.name" #name="ngModel" (blur)="employee.name = employee.name.trim()">
         <span *ngIf="name.error && name.error.required && name.touched">
             First name is  required
         </span>
     </div>
 
-    <div class="form-group" [class.has-error]="city.invalid && city.touched"
+    <div class="form-group" [class.has-error]="city?.invalid &&  (city.dirty || city.touched)"
          [class.has-success]="city.valid">
         <label for="city">
             city
@@ -20,42 +24,37 @@
                [(ngModel)]="employee.city" #city="ngModel" required>
     </div>
 
-    <div class="form-group" [class.has-error]="gender.invalid" [class.has-success]="gender.valid">
-        <label class="control-label">gender</label>
-        <div>
+    <div class="form-group"  [class.has-error]="gender?.invalid &&  (gender.dirty || gender.touched)"
+         [class.has-success]="gender.valid">
+        <label class="control-label">Gender</label>
+        <div class="form-control">
             <label class="radio-inline">
-                <input type="radio" name="gender" value="ale"
-                       [(ngModel)]="employee.gender" #gender="ngModel" >Male
+                <input type="radio" name="gender" required #gender="ngModel"
+                       value="male" [(ngModel)]="employee.gender"> Male
             </label>
             <label class="radio-inline">
-                <input type="radio" name="gender" value="female"
-                       [(ngModel)]="employee.gender" #gender="ngModel" >female
+                <input type="radio" name="gender" required #gender="ngModel"
+                       value="female" [(ngModel)]="employee.gender"> Female
             </label>
         </div>
-        <!--<span class="help-block" *ngIf="gender.invalid">
-            Gender is required
-        </span>-->
+        <span class="help-block" *ngIf="gender.errors && gender?.errors.required">
+            gender is required
+        </span>
     </div>
 
-    <!--<div class="form-group">
-        <label for="department">
-            department
+    <div class="form-group" [class.has-error]="department.touched && department.invalid">
+        <label for="department" class="control-label">
+            Department
         </label>
-        <select id="department" type="text" class="form-control" name="department"
-               [(ngModel)]="employee.department" #city="ngModel" required">
-            <option id="1">HR</option>
-            <option id="2">IT</option>
-            <option id="3">FINANCE</option>
-            <option id="4">STAFF</option>
+        <select id="department" name="department" [(ngModel)]="employee.department" #department="ngModel"
+                class="form-control" required>
+            <option *ngFor="let dept of departments" [value]="dept.id">
+                {{dept.name}}
+            </option>
         </select>
-    </div>-->
-
-    <div class="form-group">
-        <label for="department">
-            department
-        </label>
-        <input id="department" type="text" class="form-control" name="department"
-               [(ngModel)]="employee.department" #department="ngModel" required>
+    </div>
+    <div>
+        {{employee | json}}
     </div>
 
     <div class="form-group">
@@ -75,7 +74,13 @@
                [(ngModel)]="employee.contact" #contact="ngModel" required>
     </div>
 
-    <button class="btn btn-primary" type="Update" [disabled]="!checkoutForm.form.valid">Add</button>
-
+    <button class="btn btn-primary" type="submit" [disabled]="checkoutForm.invalid">UPDATE</button>
 </form>
 
+{{ employee.Id}}
+{{ employee.name}}
+{{ employee.city}}
+{{ employee.gender}}
+{{ employee.department}}
+{{ employee.email}}
+{{ employee.contact}}

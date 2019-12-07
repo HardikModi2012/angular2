@@ -13,31 +13,33 @@ var core_1 = require("@angular/core");
 var employee_service_1 = require("../employee/employee.service");
 var router_1 = require("@angular/router");
 var editEmployee = /** @class */ (function () {
+    //departmentId = 2;
     function editEmployee(_route, _employeeService) {
         this._route = _route;
         this._employeeService = _employeeService;
         this.employee = {};
+        this.departments = [
+            { id: 1, name: "HR" },
+            { id: 2, name: "it" },
+            { id: 3, name: "payroll" },
+            { id: 4, name: "help desk" },
+        ];
     }
     editEmployee.prototype.ngOnInit = function () {
         var _this = this;
-        this._route.params.subscribe(function (params) {
+        this.sub = this._route.params.subscribe(function (params) {
             _this.id = +params['id'];
         });
         this.onGet();
     };
+    editEmployee.prototype.bindEmployee = function (emp) {
+        this.employee = emp;
+        this.employee.department = "2";
+    };
     editEmployee.prototype.onGet = function () {
         var _this = this;
         this._employeeService.getEmployeeById(this.id)
-            .subscribe(function (emp) { return _this.employee = emp; });
-    };
-    editEmployee.prototype.OnDelete = function (Id) {
-        var _this = this;
-        if (confirm("r u sure") == true) {
-            this._employeeService.deleteEmployee(Id)
-                .subscribe(function (x) {
-                _this._employeeService.getEmployees();
-            });
-        }
+            .subscribe(function (emp) { return _this.bindEmployee(emp); });
     };
     editEmployee.prototype.onSubmit = function (checkoutForm) {
         if (checkoutForm.value == null)
@@ -48,8 +50,7 @@ var editEmployee = /** @class */ (function () {
     editEmployee.prototype.onUpdate = function (checkoutForm) {
         var _this = this;
         this._employeeService.updateEmployee(checkoutForm.value)
-            .subscribe(function (data) { return _this.onGet(); });
-        //this._employeeService.selectedEmployee = Object.assign({}, checkoutForm.
+            .subscribe(function (data) { return _this.onGet(); }, this.checkoutForm.reset);
     };
     editEmployee.prototype.insertEmployee = function (checkoutForm) {
         var _this = this;

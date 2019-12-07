@@ -11,10 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var employee_service_1 = require("../employee/employee.service");
+var forms_1 = require("@angular/forms");
 var addEmployee = /** @class */ (function () {
     function addEmployee(_employeeService) {
         this._employeeService = _employeeService;
         this.employee = {};
+        this.departments = [
+            { id: 1, name: "HR" },
+            { id: 2, name: "it" },
+            { id: 3, name: "payroll" },
+            { id: 4, name: "help desk" },
+        ];
     }
     addEmployee.prototype.ngOnInit = function () {
     };
@@ -24,15 +31,14 @@ var addEmployee = /** @class */ (function () {
     };
     addEmployee.prototype.onGet = function () {
         var _this = this;
-        this._employeeService.getEmployees()
-            .subscribe(function (emp) { return _this.employees = emp; });
+        this._employeeService.getEmployee().subscribe(function (emp) { return _this.employees = emp; });
     };
     addEmployee.prototype.OnDelete = function (Id) {
         var _this = this;
         if (confirm("r u sure") == true) {
             this._employeeService.deleteEmployee(Id)
                 .subscribe(function (x) {
-                _this._employeeService.getEmployees();
+                _this._employeeService.getEmployee();
             });
         }
     };
@@ -45,13 +51,17 @@ var addEmployee = /** @class */ (function () {
     addEmployee.prototype.onUpdate = function (checkoutForm) {
         var _this = this;
         this._employeeService.updateEmployee(checkoutForm.value)
-            .subscribe(function (data) { return _this._employeeService.getEmployees(); });
+            .subscribe(function (data) { return _this._employeeService.getEmployee(); });
     };
     addEmployee.prototype.insertEmployee = function (checkoutForm) {
         var _this = this;
         this._employeeService.addEmployee(checkoutForm.value)
             .subscribe(function (data) { return _this.onGet(); });
     };
+    __decorate([
+        core_1.ViewChild('checkoutForm'),
+        __metadata("design:type", forms_1.NgForm)
+    ], addEmployee.prototype, "createEmployeeFORM", void 0);
     addEmployee = __decorate([
         core_1.Component({
             selector: 'addEmployee',

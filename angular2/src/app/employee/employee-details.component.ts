@@ -2,6 +2,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { IEmployee } from './IEmployee';
 import { employeeService } from './employee.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'emp-details',
@@ -10,10 +11,18 @@ import { employeeService } from './employee.service';
 export class employeeDetailscomponent implements OnInit {
     employees: IEmployee[];
     employee: IEmployee;
-
+    id: number;
     constructor(private route: ActivatedRoute, private employeeService: employeeService) { }
 
     ngOnInit() {
-        this.route.paramMap.subscribe((params: any) => this.employee = this.employees[+params.get('Id')]);
+        this.route.params.subscribe((params: any) => {
+            this.id = +params['id'];
+        });
+        this.onGet();
+    }
+
+    onGet() {
+        this.employeeService.getEmployeeById(this.id)
+
     }
 }

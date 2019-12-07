@@ -1,17 +1,66 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-	<meta charset="utf-8" />
-</head>
-<body>
-    <h2>employee Details</h2>
+﻿<form (ngSubmit)="onSubmit(checkoutForm)" #checkoutForm="ngForm">
 
-    <div *ngIf="employee">
-        <h3>{{ employee.Name }}</h3>
-        <h4>{{ employee.City }}</h4>
-        <p>{{ employee.Address }}</p>
-        <button (click)="addEmployee(employee)">Add</button>
+    <div class="form-group" [class.has-error]="name.invalid && name.touched"
+         [class.has-success]="name.valid" >
+        <label for="name" class="control-label">Name</label>
+        <input id="name" required type="text" class="form-control" name="name"
+               [(ngModel)]="employee.Name" #name1="ngModel" readonly>
     </div>
-</body>
-</html>
+
+    <div class="form-group col-md-6" [class.has-error]="city.invalid && city.touched"
+         [class.has-success]="city.valid">
+        <label for="city">
+            city
+        </label>
+        <input id="city" type="text" class="form-control" name="city"
+               [(ngModel)]="employee.city" #city1="ngModel" required readonly>
+    </div>
+
+    <div class="form-group col-md-6" [class.has-error]="gender.invalid" [class.has-success]="gender.valid">
+        <label class="control-label">gender</label>
+        <div>
+            <label class="radio-inline">
+                <input type="radio" name="gender" value="male" gender
+                       [(ngModel)]="employee.gender" #gender1="ngModel" required>Male
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="gender" gender value="female"
+                       [(ngModel)]="employee.gender" #gender2="ngModel" required>female
+            </label>
+        </div>
+    </div>
+
+
+    <div class="form-group" [class.has-error]="department.touched && department.invalid">
+        <label for="department" class="control-label">
+            department
+        </label>
+        <select id="department" required #department="ngModel" class="form-control" name="department"
+                [(ngModel)]="employee.department">
+            <option *ngFor="let dept of departments" [value]="dept.id">
+                {{dept.name}}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-6">
+        <label for="email">
+            email
+        </label>
+        <input id="email" type="text" class="form-control" name="email"
+               [(ngModel)]="employee.email" #email="ngModel" required readonly>
+    </div>
+
+
+    <div class="form-group col-md-6">
+        <label for="contact">
+            contact
+        </label>
+        <input id="contact" type="text" class="form-control" name="contact" minLength="10" maxlength="10" pattern="[0-9]*"
+               [(ngModel)]="employee.contact" #contact="ngModel" required readonly>
+    </div>
+
+    <button class="btn btn-primary" type="submit" (click)="onBack()">Add</button>
+
+</form>
+

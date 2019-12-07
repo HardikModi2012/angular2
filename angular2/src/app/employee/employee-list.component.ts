@@ -4,10 +4,6 @@ import { Department } from './department.model';
 import { employeeService } from '../employee/employee.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
 
 @Component({
     selector: 'ListOfEmployee',
@@ -17,15 +13,7 @@ import 'rxjs/add/operator/map';
 })
 
 export class employeeListComponent1 implements OnInit {
-    departments: Department[] =
-        [
-            { id: 1, name: "HR" },
-            { id: 2, name: "it" },
-            { id: 3, name: "payroll" },
-            { id: 4, name: "help desk" },
-
-        ];
-
+   
     employees: IEmployee[];
     employee: IEmployee;
     employeeIdUpdate: number = null;
@@ -38,10 +26,9 @@ export class employeeListComponent1 implements OnInit {
 
     }
     onGet() {
-        this._employeeService.getEmployees();
-            
+        this._employeeService.getEmployee()
+            .subscribe(emp => this.employees = emp);
     }
-
 
     OnDelete(id: number) {
         if (confirm("r u sure") == true) {
@@ -55,14 +42,12 @@ export class employeeListComponent1 implements OnInit {
 
     onEdit(Id: number) {
         this._router.navigate(["/edit/" + Id]);
-        //this._employeeService.updateEmployee(employee)
-        //    .subscribe((data: any) => this._employeeService.getEmployee());
+     
     }
 
     CreateEmployee(employee: IEmployee) {
         if (this.employeeIdUpdate == null) {
-            this._employeeService.addEmployee(employee).subscribe(
-                () => {
+            this._employeeService.addEmployee(employee).subscribe(() => {
                     this.onGet();
                 }
             );
@@ -73,21 +58,6 @@ export class employeeListComponent1 implements OnInit {
                 this.employeeIdUpdate = null;
             });
         }
-
-
-        //}   
-        //onSubmit(form: NgForm) {
-        //    if (form.value.Id == null) {
-        //        this.employeeService.addEmployee(form.value)
-        //            .subscribe((data: any) => this.employeeService.getEmployee());
-        //    }
-        //    else {
-        //        this.employeeService.putEmployee(form.value.Id, form.value)
-        //            .subscribe((data: any) => {
-        //                this.employeeService.getEmployee();
-        //            });
-        //    }
-
-        //}
+        
     }
 }
